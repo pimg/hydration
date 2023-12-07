@@ -7,10 +7,12 @@ namespace state
     {
         IDLE,         // defaults to 0
         GETTING_DATA, // defaults to 1
-        RUN_PUMP_1,   // defaults to 2
-        RUN_PUMP_2,   // defaults to 3
-        RUN_PUMP_3,   // defaults to 4
-        RUN_PUMP_4,   // defaults to 5
+        PUMP_ON,      // defaults to 2
+        OPEN_VALVE_1,   // defaults to 3
+        OPEN_VALVE_2,   // defaults to 4
+        OPEN_VALVE_3,   // defaults to 5
+        OPEN_VALVE_4,   // defaults to 6
+        PUMP_OFF,     // defaults to 7
     };
 
     void display(String currState)
