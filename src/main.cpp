@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <pump.h>
 #include <states.h>
+#include <alarm.h>
 
 // put function declarations here:
 void manageStates();
@@ -9,6 +10,8 @@ void setup()
 {
   Serial.begin(9600);
   delay(1500);
+
+  alarm::init();
 }
 
 void loop()
@@ -23,8 +26,6 @@ void manageStates()
 
   static uint16_t pumpDelay;
 
-  
-
   static state::hydration currState = state::hydration::IDLE;
 
   switch (currState)
@@ -34,8 +35,16 @@ void manageStates()
   case state::hydration::IDLE:
     state::display("IDLE state");
 
-    // Move to next state
-    currState = state::hydration::GETTING_DATA;
+    if (digitalRead(ALARM_PIN) == LOW) {
+      // Move to next state
+      Serial.println("Alarm fired moving to next state..");
+
+      stateMillis = millis();
+      currState = state::hydration::GETTING_DATA;
+      alarm::setAlarmInFiveMins();
+      break;
+    }
+    
 
     break;
 
