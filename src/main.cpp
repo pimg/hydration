@@ -9,12 +9,14 @@ void manageStates();
 
 void setup()
 {
+  pump::init();
+  valve::init();
+  
   Serial.begin(9600);
   delay(1500);
 
   alarm::init();
-  pump::init();
-  valve::init();
+  
 }
 
 void loop()
@@ -83,10 +85,12 @@ void manageStates()
 
   case state::hydration::OPEN_VALVE_1:
     state::display("Open valve 1 State");
+    valve::open(RELAY_PINS[1]);
 
     if (millis() - stateMillis >= valveDelay)
     {
       // Move to next state
+      valve::close(RELAY_PINS[1]);
       stateMillis = millis();
       currState = state::hydration::OPEN_VALVE_2;
     }
@@ -95,12 +99,13 @@ void manageStates()
 
   case state::hydration::OPEN_VALVE_2:
     state::display("Open valve 2 state");
-    // close previous valve
+    valve::open(RELAY_PINS[2]);
 
     if (millis() - stateMillis >= valveDelay)
     {
 
       // Move to next state
+      valve::close(RELAY_PINS[2]);
       stateMillis = millis();
       currState = state::hydration::OPEN_VALVE_3;
     }
@@ -108,12 +113,13 @@ void manageStates()
 
   case state::hydration::OPEN_VALVE_3:
     state::display("Open valve 3 state");
-    // close previous valve
+    valve::open(RELAY_PINS[3]);
 
     if (millis() - stateMillis >= valveDelay)
     {
 
       // Move to next state
+      valve::close(RELAY_PINS[3]);
       stateMillis = millis();
       currState = state::hydration::OPEN_VALVE_4;
     }
@@ -121,12 +127,13 @@ void manageStates()
 
   case state::hydration::OPEN_VALVE_4:
     state::display("Open valve 4 state");
-    // close previous valve
+    valve::open(RELAY_PINS[4]);
 
     if (millis() - stateMillis >= valveDelay)
     {
 
       // Move to next state
+      valve::close(RELAY_PINS[4]);
       stateMillis = millis();
       currState = state::hydration::PUMP_OFF;
     }
