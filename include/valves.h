@@ -19,4 +19,14 @@ namespace valve
         Serial.println(pumpDelay);
         return pumpDelay;
     }
+
+    void open(int valveNumber) 
+    {
+        digitalWrite(valveNumber, LOW);
+    }
+
+    void close(int valveNumber) 
+    {
+        digitalWrite(valveNumber, HIGH);
+    }
 } // namespace valve
