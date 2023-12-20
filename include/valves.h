@@ -12,13 +12,6 @@ namespace valve
             digitalWrite(RELAY_PINS[currentPin], HIGH);
         }
     }
-    int calculateRuntime()
-    {
-        int pumpDelay = random(3, 8) * 1000;
-        Serial.print("Pump delay:");
-        Serial.println(pumpDelay);
-        return pumpDelay;
-    }
 
     void open(int valveNumber) 
     {

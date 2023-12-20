@@ -3,6 +3,7 @@
 #include <valves.h>
 #include <states.h>
 #include <alarm.h>
+#include <rainmeter.h>
 
 // put function declarations here:
 void manageStates();
@@ -47,7 +48,7 @@ void manageStates()
 
       stateMillis = millis();
       currState = state::hydration::GETTING_DATA;
-      alarm::setAlarmInFiveMins();
+      alarm::setAlarm();
       break;
     }
 
@@ -56,8 +57,8 @@ void manageStates()
   case state::hydration::GETTING_DATA:
     state::display("Getting data state");
 
-    valveDelay = valve::calculateRuntime();
-    if (valveDelay <= 4000)
+    valveDelay = rainmeter::shouldRunHydration();
+    if (valveDelay == 0)
     {
       Serial.println("no need to run the hydration system");
       stateMillis = millis();

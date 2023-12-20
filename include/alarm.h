@@ -7,7 +7,7 @@ namespace alarm
 
     RTC_DS3231 rtc;
 
-    void setAlarmInFiveMins()
+    void setAlarm()
     {
 
         // Disable and clear both alarms
@@ -16,7 +16,7 @@ namespace alarm
         rtc.clearAlarm(1);
         rtc.clearAlarm(2);
 
-        DateTime alarmSetAt = rtc.now() + TimeSpan(0, 0, 5, 0); // Zet de tijd over vijf minuten TimeSpan(days, hours, minutes,seconds)
+        DateTime alarmSetAt = rtc.now() + TimeSpan(0, ALARM_HOURS, ALARM_MINUTES, 0); // Zet de tijd over vijf minuten TimeSpan(days, hours, minutes,seconds)
         // Print current time and date
         char buff[] = "Alarm set at: hh:mm:ss DDD, DD MMM YYYY";
         Serial.println(alarmSetAt.toString(buff));
@@ -41,7 +41,7 @@ namespace alarm
 
         rtc.writeSqwPinMode(DS3231_OFF); // Place SQW pin into alarm interrupt mode
 
-        setAlarmInFiveMins();
+        setAlarm();
     };
 
     
