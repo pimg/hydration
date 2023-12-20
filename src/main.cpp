@@ -12,6 +12,7 @@ void setup()
 {
   pump::init();
   valve::init();
+  rainmeter::init();
   
   Serial.begin(9600);
   delay(1500);
@@ -62,7 +63,7 @@ void manageStates()
     {
       Serial.println("no need to run the hydration system");
       stateMillis = millis();
-      currState = state::hydration::IDLE;
+      currState = state::hydration::RESET_RAINMETER;
       break;
     }
 
@@ -148,6 +149,21 @@ void manageStates()
     if (millis() - stateMillis >= PUMP_DELAY)
     {
       stateMillis = millis();
+
+      currState = state::hydration::IDLE;
+    }
+
+    break;
+
+  case state::hydration::RESET_RAINMETER:
+    state::display("Reset rainmeter state");
+
+    rainmeter::openServo();
+
+    if (millis() - stateMillis >= SERVO_DELAY)
+    {
+      stateMillis = millis();
+      rainmeter::closeServo();
 
       currState = state::hydration::IDLE;
     }

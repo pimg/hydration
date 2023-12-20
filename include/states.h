@@ -13,6 +13,7 @@ namespace state
         OPEN_VALVE_3,   // defaults to 5
         OPEN_VALVE_4,   // defaults to 6
         PUMP_OFF,     // defaults to 7
+        RESET_RAINMETER, // defaults to 8
     };
 
     void display(String currState)
